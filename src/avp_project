@@ -1,0 +1,198 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define PI 3.14159f
+
+void SerbestDusme(float *g, float *sonuc, float t)
+{
+    *sonuc = 0.5f * (*g) * (t * t);
+}
+
+void YukariAtis(float *g, float *sonuc, float v0)
+{
+    *sonuc = (v0 * v0) / (2.0f * (*g));
+}
+
+void Agirlik(float *g, float *sonuc, float m)
+{
+    *sonuc = m * (*g);
+}
+
+void PotansiyelEnerji(float *g, float *sonuc, float m, float h)
+{
+    *sonuc = m * (*g) * h;
+}
+
+void HidrostatikBasinc(float *g, float *sonuc, float rho, float h)
+{
+    *sonuc = rho * (*g) * h;
+}
+
+void Arsimet(float *g, float *sonuc, float rho, float V)
+{
+    *sonuc = rho * (*g) * V;
+}
+
+void Sarkac(float *g, float *sonuc, float L)
+{
+    *sonuc = 2.0f * PI * sqrt(L / (*g));
+}
+
+void IpGerilmesi(float *g, float *sonuc, float m)
+{
+    *sonuc = m * (*g);
+}
+
+void Asansor(float *g, float *sonuc, float m, float a, int tip)
+{
+    *sonuc = (tip == 1) ? m * ((*g) + a) : m * ((*g) - a);
+}
+
+int main()
+{
+    const char *gezegenler[] = { "Merkur", "Venus", "Dunya", "Mars", "Jupiter", "Saturn", "Uranus", "Neptun" };
+    float yercekimiivme[] = { 3.70, 8.87, 9.81, 3.71, 24.79, 10.44, 8.69, 11.15 };
+    const char *deneyler[] = {
+        "Serbest Dusme Deneyi",
+        "Yukari Atis Deneyi",
+        "Agirlik Deneyi",
+        "Kutlecekimsel Potansiyel Enerji Deneyi",
+        "Hidrostatik Basinc Deneyi",
+        "Arsimet Kaldirma Kuvveti Deneyi",
+        "Basit Sarkac Periyodu Deneyi",
+        "Sabit Ip Gerilmesi Deneyi",
+        "Asansor Deneyi"
+    };
+
+    char ad[50];
+    int secim, i, asansorTip;
+    float sonuc, t, v0, m, h, rho, V, L, a;
+
+    printf("===== UZAY SIMULASYONUNA HOSGELDINIZ =====\n");
+    printf("Bilim Insani Adi: ");
+    scanf("%s", ad);
+
+    while (1)
+    {
+        printf("\n--- SAYIN %s, DENEY MENUSU ---\n", ad);
+
+        for (i = 0; i < 9; i++)
+        {
+            printf("%d. %s\n", i + 1, *(deneyler + i));
+        }
+
+        printf("-1. CIKIS\nSeciminiz: ");
+        scanf("%d", &secim);
+
+        if (secim == -1)
+        {
+            break;
+        }
+
+        switch (secim)
+        {
+            case 1:
+                printf("Sure (t - saniye): "); scanf("%f", &t);
+                t = (t < 0) ? -t : t;
+                break;
+            case 2:
+                printf("Ilk Hiz (v0 - m/s): "); scanf("%f", &v0);
+                v0 = (v0 < 0) ? -v0 : v0;
+                break;
+            case 3:
+                printf("Kutle (m - kg): "); scanf("%f", &m);
+                m = (m < 0) ? -m : m;
+                break;
+            case 4:
+                printf("Kutle (kg): "); scanf("%f", &m);
+                printf("Yukseklik (h - m): "); scanf("%f", &h);
+                m = (m < 0) ? -m : m;
+                h = (h < 0) ? -h : h;
+                break;
+            case 5:
+                printf("Yogunluk (rho - kg/m3): "); scanf("%f", &rho);
+                printf("Derinlik (h - m): "); scanf("%f", &h);
+                rho = (rho < 0) ? -rho : rho;
+                h = (h < 0) ? -h : h;
+                break;
+            case 6:
+                printf("Yogunluk (rho - kg/m3): "); scanf("%f", &rho);
+                printf("Batan Hacim (V - m3): "); scanf("%f", &V);
+                rho = (rho < 0) ? -rho : rho;
+                V = (V < 0) ? -V : V;
+                break;
+            case 7:
+                printf("Sarkac Uzunlugu (L - m): "); scanf("%f", &L);
+                L = (L < 0) ? -L : L;
+                break;
+            case 8:
+                printf("Kutle (m - kg): "); scanf("%f", &m);
+                m = (m < 0) ? -m : m;
+                break;
+            case 9:
+                printf("Asansor Ivmesi (a - m/s2): "); scanf("%f", &a);
+                printf("Cisim Kutlesi (m - kg): "); scanf("%f", &m);
+                printf("Durum (1: Hizlanan Yukari, 2: Hizlanan Asagi): "); scanf("%d", &asansorTip);
+                a = (a < 0) ? -a : a;
+                m = (m < 0) ? -m : m;
+                break;
+            default:
+                printf("Gecersiz secim!\n");
+                continue;
+        }
+
+        printf("\n%-12s | %-10s | %s\n", "GEZEGEN", "g (m/s2)", "HESAPLANAN DEGER");
+        printf("--------------------------------------------------------------\n");
+
+        for (i = 0; i < 8; i++)
+        {
+            float *g_ptr = (yercekimiivme + i);
+            const char *g_ad = *(gezegenler + i);
+
+            switch (secim)
+            {
+                case 1:
+                    SerbestDusme(g_ptr, &sonuc, t);
+                    printf("%-12s | %-10.2f | h = %.2f metre\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 2:
+                    YukariAtis(g_ptr, &sonuc, v0);
+                    printf("%-12s | %-10.2f | h_max = %.2f metre\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 3:
+                    Agirlik(g_ptr, &sonuc, m);
+                    printf("%-12s | %-10.2f | G = %.2f Newton\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 4:
+                    PotansiyelEnerji(g_ptr, &sonuc, m, h);
+                    printf("%-12s | %-10.2f | Ep = %.2f Joule\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 5:
+                    HidrostatikBasinc(g_ptr, &sonuc, rho, h);
+                    printf("%-12s | %-10.2f | P = %.2f Pascal\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 6:
+                    Arsimet(g_ptr, &sonuc, rho, V);
+                    printf("%-12s | %-10.2f | Fk = %.2f Newton\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 7:
+                    Sarkac(g_ptr, &sonuc, L);
+                    printf("%-12s | %-10.2f | T = %.2f saniye\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 8:
+                    IpGerilmesi(g_ptr, &sonuc, m);
+                    printf("%-12s | %-10.2f | T = %.2f Newton\n", g_ad, *g_ptr, sonuc);
+                    break;
+                case 9:
+                    Asansor(g_ptr, &sonuc, m, a, asansorTip);
+                    printf("%-12s | %-10.2f | N = %.2f Newton\n", g_ad, *g_ptr, sonuc);
+                    break;
+            }
+        }
+    }
+
+    printf("\nSimulasyon bitti. Iyi gunler dileriz, Sayin %s!\n", ad);
+
+    return 0;
+}
