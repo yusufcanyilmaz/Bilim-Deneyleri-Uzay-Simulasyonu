@@ -65,7 +65,7 @@ int main()
         "Asansor Deneyi"
     };
 
-    char ad[50];
+    char ad[100];
     int secim, i, asansorTip;
     float sonuc, t, v0, m, h, rho, V, L, a;
 
@@ -93,47 +93,60 @@ int main()
         switch (secim)
         {
             case 1:
-                printf("Sure (t - saniye): "); scanf("%f", &t);
+                printf("Sure (t - saniye): ");
+                scanf("%f", &t);
                 t = (t < 0) ? -t : t;
                 break;
             case 2:
-                printf("Ilk Hiz (v0 - m/s): "); scanf("%f", &v0);
+                printf("Ilk Hiz (v0 - m/s): ");
+                scanf("%f", &v0);
                 v0 = (v0 < 0) ? -v0 : v0;
                 break;
             case 3:
-                printf("Kutle (m - kg): "); scanf("%f", &m);
+                printf("Kutle (m - kg): ");
+                scanf("%f", &m);
                 m = (m < 0) ? -m : m;
                 break;
             case 4:
                 printf("Kutle (kg): "); scanf("%f", &m);
-                printf("Yukseklik (h - m): "); scanf("%f", &h);
+                printf("Yukseklik (h - m): ");
+                scanf("%f", &h);
                 m = (m < 0) ? -m : m;
                 h = (h < 0) ? -h : h;
                 break;
             case 5:
-                printf("Yogunluk (rho - kg/m3): "); scanf("%f", &rho);
-                printf("Derinlik (h - m): "); scanf("%f", &h);
+                printf("Yogunluk (rho - kg/m3): ");
+                scanf("%f", &rho);
+                printf("Derinlik (h - m): ");
+                scanf("%f", &h);
                 rho = (rho < 0) ? -rho : rho;
                 h = (h < 0) ? -h : h;
                 break;
             case 6:
-                printf("Yogunluk (rho - kg/m3): "); scanf("%f", &rho);
-                printf("Batan Hacim (V - m3): "); scanf("%f", &V);
+                printf("Yogunluk (rho - kg/m3): ");
+                 scanf("%f", &rho);
+                printf("Batan Hacim (V - m3): ");
+                 scanf("%f", &V);
                 rho = (rho < 0) ? -rho : rho;
                 V = (V < 0) ? -V : V;
                 break;
             case 7:
-                printf("Sarkac Uzunlugu (L - m): "); scanf("%f", &L);
+                printf("Sarkac Uzunlugu (L - m): ");
+                scanf("%f", &L);
                 L = (L < 0) ? -L : L;
                 break;
             case 8:
-                printf("Kutle (m - kg): "); scanf("%f", &m);
+                printf("Kutle (m - kg): ");
+                scanf("%f", &m);
                 m = (m < 0) ? -m : m;
                 break;
             case 9:
-                printf("Asansor Ivmesi (a - m/s2): "); scanf("%f", &a);
-                printf("Cisim Kutlesi (m - kg): "); scanf("%f", &m);
-                printf("Durum (1: Hizlanan Yukari, 2: Hizlanan Asagi): "); scanf("%d", &asansorTip);
+                printf("Asansor Ivmesi (a - m/s2): ");
+                scanf("%f", &a);
+                printf("Cisim Kutlesi (m - kg): ");
+                scanf("%f", &m);
+                printf("Durum (1: Hizlanan Yukari, 2: Hizlanan Asagi): ");
+                scanf("%d", &asansorTip);
                 a = (a < 0) ? -a : a;
                 m = (m < 0) ? -m : m;
                 break;
