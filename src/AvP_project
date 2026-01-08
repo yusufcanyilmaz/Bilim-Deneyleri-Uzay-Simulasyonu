@@ -83,7 +83,11 @@ int main()
         }
 
         printf("-1. CIKIS\nSeciminiz: ");
-        scanf("%d", &secim);
+        if (scanf(“%d”, &secim) != 1) { 
+            while(getchar() != ‘\n’)
+           {} ; 
+                secim = 0;
+        }
 
         if (secim == -1)
         {
